@@ -75,22 +75,6 @@ rule fastqc_raw:
         """
 
 
-rule fastqc_raw_r2:
-    input:
-        r = lambda wc: f"{RAW_DIR}/{wc.sample}_2.fastq.gz"
-    output:
-        zip  = f"{FASTQC_RAW_DIR}/{{sample}}_2_fastqc.zip",
-        html = f"{FASTQC_RAW_DIR}/{{sample}}_2_fastqc.html"
-    shell:
-        """
-        module load conda
-        conda activate rnaseq
-
-        mkdir -p {FASTQC_RAW_DIR}
-        fastqc --outdir {FASTQC_RAW_DIR} {input.r}
-        """
-
-
 ###############################################
 # 2) Cutadapt trimming
 ###############################################
@@ -235,6 +219,7 @@ rule clean_bam:
         rm "$sorted" "$fixmate"
         """
 
+
 ###############################################
 # 7) FEATURECOUNTS
 ###############################################
@@ -260,6 +245,7 @@ rule featurecounts:
             -o {output.counts} \
             {input.bam}
         """
+
 
 ###############################################
 # 8) Merge featureCounts outputs
