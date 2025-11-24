@@ -3,7 +3,7 @@
 ###############################################
 
 # Load configuration
-configfile: "$HOME/m2bi_snakemake/config/config.yaml"
+configfile: "/home/users/student14/m2bi_snakemake/config/config.yaml"
 
 # ----- PATHS -----
 PATHS           = config["paths"]
