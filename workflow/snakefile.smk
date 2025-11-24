@@ -3,7 +3,7 @@
 ###############################################
 
 # Load configuration
-configfile: "/home/users/student14/m2bi_snakemake/config/config.yaml"
+configfile: "../config/config.yaml"
 
 # ----- PATHS -----
 PATHS           = config["paths"]
@@ -267,7 +267,7 @@ rule merge_counts:
 
         mkdir -p {R_RESULTS_DIR}
 
-        Rscript /home/users/student14/m2bi_snakemake/scripts/all_counts.R \
+        Rscript ../scripts/all_counts.R \
             {params.counts_dir} \
             {output}
         """
