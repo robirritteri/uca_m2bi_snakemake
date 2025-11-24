@@ -27,9 +27,10 @@ m2bi_snakemake/
 │
 ├── workflow/
 │   ├── snakefile.smk
-│   ├── config/
-│   │   └── config.yaml
 │   └── log/
+│   
+├── config/
+│   └── config.yaml
 │
 ├── scripts/
 │   ├── all_counts.R
