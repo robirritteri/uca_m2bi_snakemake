@@ -27,7 +27,6 @@ m2bi_snakemake/
 │
 ├── workflow/
 │   ├── snakefile.smk
-│   └── log/
 │   
 ├── config/
 │   └── config.yaml
