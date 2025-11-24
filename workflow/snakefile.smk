@@ -51,7 +51,7 @@ rule all:
         # FeatureCounts
         expand(f"{COUNTS_DIR}/{{sample}}_counts.txt", sample=SAMPLES)
 
-	# Final merged + R analysis result
+		# Final merged + R analysis result
         "results/R/analysis/DE_results_mydata.tsv"
 
 
