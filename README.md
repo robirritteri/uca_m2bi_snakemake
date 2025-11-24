@@ -35,7 +35,7 @@ m2bi_snakemake/
 │   ├── all_counts.R
 │   └── Analyse.R
 │
-└── results/
+├── results/
 │   ├── FastQC/
 │   ├── Trimmed/
 │   ├── FastQC_trim/
