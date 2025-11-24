@@ -36,14 +36,16 @@ m2bi_snakemake/
 │   └── Analyse.R
 │
 └── results/
-    ├── FastQC/
-    ├── Trimmed/
-    ├── FastQC_trim/
-    ├── STAR/
-    │   ├── index/
-    │   ├── alignments/
-    │   └── clean/
-    └── counts/
+│   ├── FastQC/
+│   ├── Trimmed/
+│   ├── FastQC_trim/
+│   ├── STAR/
+│   │   ├── index/
+│   │   ├── alignments/
+│   │   └── clean/
+│   └── counts/
+│
+└── conda.yaml
 ```
 ## 3. Conda Environment
 
