@@ -45,7 +45,7 @@ m2bi_snakemake/
 │   │   └── clean/
 │   └── counts/
 │
-└── conda.yaml
+└── rnaseq.yaml
 ```
 ## 3. Conda Environment
 
