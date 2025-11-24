@@ -1,50 +1,52 @@
+#!/usr/bin/env Rscript
+
 ###############################################
-# DESeq2 Analysis – RNA-seq differential expression
+# Merge featureCounts outputs
 ###############################################
 
-# Load required libraries
 library(dplyr)
 
-PATH <- commandArgs(trailingOnly = TRUE)
+args <- commandArgs(trailingOnly = TRUE)
 
-# Set working directory
-setwd(PATH)
+if (length(args) < 2) {
+  stop("Usage: all_counts.R <counts_dir> <output_file>")
+}
 
-###############################################
-# Step 1: Load and merge featureCounts files
-###############################################
+counts_dir <- args[1]
+out_file   <- args[2]
 
-# Directory containing featureCounts files
-fc_dir <- "$HOME/results/RNAseq/counts"
+# List all featureCounts files produced by Snakemake
+files <- list.files(counts_dir, pattern = "_counts\\.txt$", full.names = TRUE)
 
-# List all featureCounts files
-files <- list.files(fc_dir, pattern = "featureCounts.txt$", full.names = TRUE)
+if (length(files) == 0) {
+  stop("No *_counts.txt files found in ", counts_dir)
+}
 
-# Function to read a single featureCounts file
 read_fc <- function(path) {
   df <- read.table(path, header = TRUE, sep = "\t", check.names = FALSE)
   
-  # Extract sample name from filename
+  # Extract sample name from filename: <sample>_counts.txt -> <sample>
   sample <- basename(path)
-  sample <- sub(".featureCounts.txt", "", sample)
+  sample <- sub("\\.txt$", "", sample)
+  sample <- sub("_counts$", "", sample)
   
-  # Keep Geneid and count column (7th column)
+  # featureCounts format: first column "Geneid", 7th column = count
   df_small <- df[, c("Geneid", colnames(df)[7])]
-  
-  # Rename count column to sample name
   colnames(df_small)[2] <- sample
   return(df_small)
 }
 
-# Read all featureCounts files
+# Read all files
 list_fc <- lapply(files, read_fc)
 
-# Merge all files by Geneid
+# Merge by Geneid
 merged <- Reduce(function(x, y) merge(x, y, by = "Geneid"), list_fc)
 
-# Display first rows
-head(merged)
-
-# Write merged counts to file
-write.table(merged, "all_featureCounts_counts.txt",
-            sep = "\t", quote = FALSE, row.names = FALSE)
+# Write merged table
+write.table(
+  merged,
+  file = out_file,
+  sep = "\t",
+  quote = FALSE,
+  row.names = FALSE
+)
