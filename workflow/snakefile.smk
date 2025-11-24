@@ -25,7 +25,7 @@ SAMPLES = config["samples"]
 
 
 ###############################################
-# RULE
+# FINAL TARGET RULE
 ###############################################
 
 rule all:
@@ -49,9 +49,9 @@ rule all:
         expand(f"{CLEAN_BAM_DIR}/{{sample}}_ready.bam", sample=SAMPLES),
 
         # FeatureCounts
-        expand(f"{COUNTS_DIR}/{{sample}}_counts.txt", sample=SAMPLES)
+        expand(f"{COUNTS_DIR}/{{sample}}_counts.txt", sample=SAMPLES),
 
-		# Final merged + R analysis result
+        # Final merged + R analysis result
         "results/R/analysis/DE_results_mydata.tsv"
 
 
@@ -61,7 +61,7 @@ rule all:
 
 rule fastqc_raw:
     input:
-        lambda wc: f"{RAW_DIR}/{wc.sample}_{wc.pair}.fastq.gz"
+        r = lambda wc: f"{RAW_DIR}/{wc.sample}_{wc.pair}.fastq.gz"
     output:
         f"{FASTQC_RAW_DIR}/{{sample}}_{{pair}}_fastqc.zip",
         f"{FASTQC_RAW_DIR}/{{sample}}_{{pair}}_fastqc.html"
@@ -179,7 +179,7 @@ rule star_align:
             --readFilesIn {input.r1} {input.r2} \
             --readFilesCommand zcat \
             --outSAMtype BAM SortedByCoordinate \
-            --outFileNamePrefix {STAR_ALIGN_DIR}/{{wildcards.sample}}_ \
+            --outFileNamePrefix {STAR_ALIGN_DIR}/{wildcards.sample}_ \
             --sjdbOverhang 99 \
             --quantMode TranscriptomeSAM GeneCounts
         """
@@ -203,8 +203,8 @@ rule clean_bam:
 
         mkdir -p {CLEAN_BAM_DIR}
 
-        fixmate="{CLEAN_BAM_DIR}/{{wildcards.sample}}_fixmate.bam"
-        sorted="{CLEAN_BAM_DIR}/{{wildcards.sample}}_sorted.bam"
+        fixmate="{CLEAN_BAM_DIR}/{wildcards.sample}_fixmate.bam"
+        sorted="{CLEAN_BAM_DIR}/{wildcards.sample}_sorted.bam"
 
         samtools fixmate -m {input.bam} "$fixmate"
         samtools view -b -q 28 "$fixmate" | samtools sort -@ {threads} -o "$sorted"
@@ -291,5 +291,5 @@ rule r_analysis:
 
         mkdir -p results/R/analysis
 
-        Rscript config/Analyse.R {params.rdir}
+        Rscript ../scripts/Analyse.R {params.rdir}
         """
