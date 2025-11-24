@@ -1,0 +1,46 @@
+paths:
+  # Raw FASTQ 
+  raw_dir: "/home/users/shared/data/stategra/RNAseq/raw"
+
+  # Output directories
+  fastqc_raw_dir: "results/FastQC"
+  trim_dir: "results/Trimmed"
+  fastqc_trim_dir: "results/FastQC_trim"
+
+  star_index_dir: "results/STAR/index"
+  star_align_dir: "results/STAR/alignments"
+  clean_bam_dir: "results/STAR/clean"
+  counts_dir: "results/STAR/counts"
+
+reference:
+  genome_fasta: "/home/users/shared/databanks/Mus_musculus_GRCm39/fasta/all.fasta"
+  gtf: "/home/users/shared/databanks/Mus_musculus_GRCm39/flat/genomic.gtf"
+
+samples:
+  - control_0h_B1_R1
+  - control_0h_B1_R2
+  - control_0h_B2_R1
+  - control_0h_B2_R2
+  - control_0h_B4_R1
+  - control_0h_B4_R2
+
+  - control_24h_B1_R1
+  - control_24h_B1_R2
+  - control_24h_B2_R1
+  - control_24h_B2_R2
+  - control_24h_B4_R1
+  - control_24h_B4_R2
+
+  - ikaros_0h_B1_R1
+  - ikaros_0h_B1_R2
+  - ikaros_0h_B2_R1
+  - ikaros_0h_B2_R2
+  - ikaros_0h_B4_R1
+  - ikaros_0h_B4_R2
+
+  - ikaros_24h_B1_R1
+  - ikaros_24h_B1_R2
+  - ikaros_24h_B3_R1
+  - ikaros_24h_B3_R2
+  - ikaros_24h_B4_R1
+  - ikaros_24h_B4_R2
