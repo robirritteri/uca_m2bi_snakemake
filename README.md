@@ -149,7 +149,7 @@ Aligns trimmed paired-end reads.
 
 Produces:
 ```text
-$HOME/results/RNAseq/alignment/paired/<sample>/
+../results/RNAseq/alignment/paired/<sample>/
    ├── <sample>_Aligned.sortedByCoord.out.bam
    ├── <sample>_Log.final.out
    └── <sample>_ReadsPerGene.out.tab
@@ -167,7 +167,7 @@ Operations for paired-end BAMs:
 ```
 Output:
 ```code
-results/RNAseq/picard/bamTraite/paired/dedup_<sample>.bam
+../results/RNAseq/picard/bamTraite/paired/dedup_<sample>.bam
 ```
 
 ### 07 — featureCounts quantification
@@ -180,8 +180,9 @@ Counts reads with:
 ```
 
 Output:
-
-results/RNAseq/samtools/<sample>/<sample>.featureCounts.txt
+```
+../results/RNAseq/samtools/<sample>/<sample>.featureCounts.txt
+```
 
 ### 08 — R analysis
 
@@ -191,9 +192,9 @@ results/RNAseq/samtools/<sample>/<sample>.featureCounts.txt
 
 Outputs:
 ```code
-$HOME/results/RNAseq/counts/deseq2_normalized_counts.csv
-$HOME/results/RNAseq/counts/deseq2_vst.csv
-$HOME/results/RNAseq/counts/dds.rds
+../results/RNAseq/counts/deseq2_normalized_counts.csv
+../results/RNAseq/counts/deseq2_vst.csv
+../results/RNAseq/counts/dds.rds
 ```
 
 ## 7. Pre-run checklist
